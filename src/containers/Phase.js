@@ -39,6 +39,12 @@ class Phase extends Component {
         axios.put('/update', { _id, phase })
     }
 
+
+    handleDelete = (_id) => {
+        console.log(_id)
+        axios.delete('/delete', { data: { _id } })
+    }
+
     render() {
 
         var phases = {
@@ -70,6 +76,8 @@ class Phase extends Component {
                                         draggable
                                     >
                                         <h3>{task.title}</h3>
+                                        <p>{task.description}</p>
+                                        <button onClick={() => this.handleDelete(task._id)}>X</button>
                                     </div>
                                 )
                             })}
