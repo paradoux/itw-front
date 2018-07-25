@@ -1,7 +1,11 @@
+/* APP */
+
 .App{
   height: 100vh;
   background-color: #f9f9f9;
 }
+
+/* HEADER */
 
 .header-title{
   background-color: white;
@@ -15,6 +19,8 @@
   box-shadow: 0 4px 2px -5px #000000;
 }
 
+/* PHASES */
+
 .phase{
   margin-top: 1px;
   box-shadow: 4px 0px 2px -5px #000000, -4px 0px 2px -5px #000000;
@@ -22,6 +28,7 @@
   height: 90vh;
 }
 
+/* TASKS CARDS */
 .task-card{
   background-color: white;
   font-family: 'Roboto';
@@ -69,6 +76,7 @@
   padding: 9px;
 }
 
+/* FORM */
 .form-card{
   border-radius: 3px;
   position: absolute;

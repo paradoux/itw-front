@@ -15,7 +15,7 @@ class App extends Component {
   }
 
   handleProjectCreation = task => {
-    this.setState({ ...this.state, tasks: [task] })
+    this.setState({ ...this.state, tasks: [task] }) // Take the new task created from Form and update the State
   }
 
   render() {
@@ -24,9 +24,9 @@ class App extends Component {
         <div className="container">
           <Header />
           <div className="row no-gutters">
-            <Phase newTasks={this.state.tasks} />
+            <Phase newTasks={this.state.tasks} /> {/* Take the new task from the state and send it to the Phase component through props */}
           </div>
-          <Form onProjectCreation={task => this.handleProjectCreation(task)} />
+          <Form onProjectCreation={task => this.handleProjectCreation(task)} /> {/* Lift up the new task created */}
         </div>
       </div>
     );
