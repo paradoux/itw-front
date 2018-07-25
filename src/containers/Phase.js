@@ -4,8 +4,12 @@ import Tasks from '../containers/Tasks'
 
 class Phase extends Component {
 
-    state = {
-        tasks: []
+    constructor(props) {
+        super(props)
+        this.state = {
+            tasks: []
+
+        }
     }
 
     componentDidMount = () => {
@@ -20,7 +24,6 @@ class Phase extends Component {
             this.setState({ ...this.state, tasks: [...this.state.tasks, ...this.props.newTasks] })
         }
     }
-
 
     onDragOver = (e) => {
         e.preventDefault();
@@ -51,13 +54,6 @@ class Phase extends Component {
         })
     }
 
-    /*     handleProjectCreation = () => {
-            let tasks = this.props.newTasks
-            console.log(tasks)
-            console.log(this.props)
-            this.setState({ ...this.state, tasks: [...this.state.tasks, ...tasks] })
-        } */
-
     render() {
 
         var phases = {
@@ -75,15 +71,16 @@ class Phase extends Component {
 
         return Object.keys(phases).map(phase => {
             return (
-                <div className="phase"
-                    key={phase}
-                    onDragOver={(e) => this.onDragOver(e)}
-                    onDrop={(e) => this.onDrop(e, phase)}
-                >
-                    <h1>{phase}</h1>
-                    <Tasks onProjectDelete={(id) => this.handleProjectDelete(id)} tasks={this.state.tasks.filter(task => {
-                        return (task.phase === phase)
-                    })} />
+                <div className="col-md-2">
+                    <div className="phase"
+                        key={phase}
+                        onDragOver={(e) => this.onDragOver(e)}
+                        onDrop={(e) => this.onDrop(e, phase)}
+                    >
+                        <Tasks onProjectDelete={(id) => this.handleProjectDelete(id)} tasks={this.state.tasks.filter(task => {
+                            return (task.phase === phase)
+                        })} />
+                    </div>
                 </div>
             );
         })

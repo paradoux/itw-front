@@ -4,13 +4,13 @@ import React from 'react';
 const Header = () => {
 
     return (
-        <div className="row">
-            <div className="col-md-2">Flowcharts</div>
-            <div className="col-md-2">Wireframes</div>
-            <div className="col-md-2">Prototype</div>
-            <div className="col-md-2">Development</div>
-            <div className="col-md-2">Test</div>
-            <div className="col-md-2">Launch</div>
+        <div className="row no-gutters">
+            <div className="col-md-2"><h1 className="header-title">Flowcharts</h1></div>
+            <div className="col-md-2"><h1 className="header-title">Wireframes</h1></div>
+            <div className="col-md-2"><h1 className="header-title">Prototype</h1></div>
+            <div className="col-md-2"><h1 className="header-title">Development</h1></div>
+            <div className="col-md-2"><h1 className="header-title">Test</h1></div>
+            <div className="col-md-2"><h1 className="header-title">Launch</h1></div>
         </div>
     )
 }

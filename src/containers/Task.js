@@ -16,13 +16,15 @@ class Task extends React.Component {
     render() {
         let { task } = this.props
         return (
-            <div
+            <div className="task-card"
                 draggable
                 onDragStart={(e) => { this.onDragStart(e, task.title) }}
             >
-                <h3>{task.title}</h3>
-                <p>{task.description}</p>
-                <button onClick={() => this.handleDelete(task._id)}>X</button>
+                <div className="task-card-banner">
+                    <h3 className="task-title">{task.title}</h3>
+                    <button className="task-delete" onClick={() => this.handleDelete(task._id)}>X</button>
+                </div>
+                <p className="task-description">{task.description}</p>
             </div>
         )
     }

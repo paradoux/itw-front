@@ -23,10 +23,8 @@ class App extends Component {
       <div className="App">
         <div className="container">
           <Header />
-          <div className="container-fluid">
-            <div className="row">
-              <Phase newTasks={this.state.tasks} />
-            </div>
+          <div className="row no-gutters">
+            <Phase newTasks={this.state.tasks} />
           </div>
           <Form onProjectCreation={task => this.handleProjectCreation(task)} />
         </div>
