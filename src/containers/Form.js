@@ -32,10 +32,15 @@ class Form extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        let task = this.taskBuilder()
-        axios.post('/new', { task })
-        this.props.onProjectCreation(task)
-        this.setState({ title: '', description: '' })
+        var task = this.taskBuilder()
+        if ((task.title.match(/\S/) !== null && task.description.match(/\S/) !== null)) {
+            axios.post('/new', { task })
+            this.props.onProjectCreation(task)
+            this.setState({ title: '', description: '' })
+        }
+        else {
+            return alert("Sorry this field can't be empty !")
+        }
     }
 
     render() {

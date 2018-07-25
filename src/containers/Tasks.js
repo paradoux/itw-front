@@ -6,7 +6,7 @@ const Tasks = (props) => {
     return props.tasks.map(task => {
         return (
             <div key={task._id}>
-                <Task onProjectDelete={(id) => this.props.onProjectDelete(id)} task={task} />
+                <Task onProjectDelete={(id) => props.onProjectDelete(id)} task={task} />
             </div>
         )
     })

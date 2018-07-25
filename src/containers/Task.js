@@ -7,7 +7,7 @@ const Task = (props) => {
 
     this.handleDelete = (_id) => {
         axios.delete('/delete', { data: { _id } })
-        this.props.onProjectDelete(_id)
+        props.onProjectDelete(_id)
     }
 
     this.onDragStart = (e, title) => {
