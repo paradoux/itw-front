@@ -32,25 +32,25 @@ class Phase extends Component {
     }
 
     onDrop = (e, phase) => {
-        let title = e.dataTransfer.getData("text/plain")  //
+        let title = e.dataTransfer.getData("text/plain")  //Retrieves the task title from the dataTransfer
         let tasks = [...this.state.tasks]
-        tasks = tasks.filter((task) => {
+        tasks = tasks.filter((task) => { // Filters the tasks of the state to find the one that has a corresponding title with the task dropped and update its phase 
             if (task.title === title) {
                 task.phase = phase
-                this.updateTask(task._id, phase)
+                this.updateTask(task._id, phase) //Sends the id of the task to be updated and its new phase to the updateTask function
             }
             return task
         })
         this.setState({ ...this.state, tasks })
     }
 
-    updateTask = (_id, phase) => {  //Sends an update request to the DB
+    updateTask = (_id, phase) => {  //Sends an update request to the DB with the _id of the task and its new phase
         axios.put('/update', { _id, phase })
     }
 
-    handleProjectDelete = (id) => {
+    handleProjectDelete = (id) => { //Retrieve the id of the selected task from the Task component (passing through the onProjectDelete prop of Tasks and Task)
         this.setState({
-            tasks: this.state.tasks.filter(task => {    //Filter all the tasks to find the id of the one to be deleted
+            tasks: this.state.tasks.filter(task => {    //Filter all the tasks to find the task's id corresponding to the retrieved one and update the state without the deleted task
                 return (task._id !== id)
             })
         })
@@ -73,13 +73,14 @@ class Phase extends Component {
 
         return Object.keys(phases).map(phase => { //Display all the different phases 
             return (
-                <div className="col-md-2">
+                <div key={phase} className="col-md-2">
                     <div className="phase"
                         key={phase}
                         onDragOver={(e) => this.onDragOver(e)}
                         onDrop={(e) => this.onDrop(e, phase)} //Send the name of the phase where the task has been dropped 
                     >
-                        <Tasks onProjectDelete={(id) => this.handleProjectDelete(id)} tasks={this.state.tasks.filter(task => {
+                        {/* Send the handle ProjectDelete to Tasks through props  */}
+                        <Tasks onProjectDelete={(id) => this.handleProjectDelete(id)} tasks={this.state.tasks.filter(task => { /* For each phase, filters the tasks that have a phase corresponding to the current phase */
                             return (task.phase === phase)
                         })} />
                     </div>
