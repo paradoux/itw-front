@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import Tasks from '../containers/Tasks'
 
 class Phase extends Component {
 
@@ -14,9 +15,12 @@ class Phase extends Component {
         })
     }
 
-    onDragStart = (e, title) => {
-        e.dataTransfer.setData("text/plain", title)
+    componentDidUpdate = (prevProps, prevState) => {
+        if (this.props.newTasks !== prevProps.newTasks) {
+            this.setState({ ...this.state, tasks: [...this.state.tasks, ...this.props.newTasks] })
+        }
     }
+
 
     onDragOver = (e) => {
         e.preventDefault();
@@ -39,11 +43,20 @@ class Phase extends Component {
         axios.put('/update', { _id, phase })
     }
 
-
-    handleDelete = (_id) => {
-        console.log(_id)
-        axios.delete('/delete', { data: { _id } })
+    handleProjectDelete = (id) => {
+        this.setState({
+            tasks: this.state.tasks.filter(task => {
+                return (task._id !== id)
+            })
+        })
     }
+
+    /*     handleProjectCreation = () => {
+            let tasks = this.props.newTasks
+            console.log(tasks)
+            console.log(this.props)
+            this.setState({ ...this.state, tasks: [...this.state.tasks, ...tasks] })
+        } */
 
     render() {
 
@@ -56,36 +69,24 @@ class Phase extends Component {
             launch: []
         }
 
-        this.state.tasks.map((task) => {
-            phases[task.phase].push(task)
+        this.state.tasks.map(task => {
+            return phases[task.phase].push(task)
         })
 
-        return Object.entries(phases).map((entry) => {
+        return Object.keys(phases).map(phase => {
             return (
-                <div className="col-md-2">
-                    <div className="phase"
-                        onDragOver={(e) => this.onDragOver(e)}
-                        onDrop={(e) => this.onDrop(e, entry[0])}
-                    >
-                        <h1>{entry[0]}</h1>
-                        <div>
-                            {entry[1].map((task) => {
-                                return (
-                                    <div className="task"
-                                        onDragStart={(e) => { this.onDragStart(e, task.title) }}
-                                        draggable
-                                    >
-                                        <h3>{task.title}</h3>
-                                        <p>{task.description}</p>
-                                        <button onClick={() => this.handleDelete(task._id)}>X</button>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div>
+                <div className="phase"
+                    key={phase}
+                    onDragOver={(e) => this.onDragOver(e)}
+                    onDrop={(e) => this.onDrop(e, phase)}
+                >
+                    <h1>{phase}</h1>
+                    <Tasks onProjectDelete={(id) => this.handleProjectDelete(id)} tasks={this.state.tasks.filter(task => {
+                        return (task.phase === phase)
+                    })} />
                 </div>
-            )
-        });
+            );
+        })
     }
 }
 

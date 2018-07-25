@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 import axios from 'axios'
+import uuidv4 from 'uuid/v4'
 
 class Form extends React.Component {
 
@@ -9,7 +10,6 @@ class Form extends React.Component {
             title: '',
             description: ''
         }
-
     }
 
     onTitleChange = (e) => {
@@ -25,7 +25,12 @@ class Form extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault()
         let { title, description } = this.state
-        axios.post('/new', { title, description })
+        let _id = uuidv4()
+        let created_at = new Date(Date.now())
+        let phase = 'flowcharts'
+        let task = { title, description, phase, _id, created_at }
+        //axios.post('/new', { task })
+        this.props.onProjectCreation(task)
     }
 
     render() {

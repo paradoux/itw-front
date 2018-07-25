@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 import Phase from './containers/Phase'
@@ -7,6 +6,18 @@ import Header from './components/Header'
 import Form from './containers/Form'
 
 class App extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      tasks: []
+    }
+  }
+
+  handleProjectCreation = task => {
+    this.setState({ ...this.state, tasks: [task] })
+  }
+
   render() {
     return (
       <div className="App">
@@ -14,10 +25,10 @@ class App extends Component {
           <Header />
           <div className="container-fluid">
             <div className="row">
-              <Phase />
+              <Phase newTasks={this.state.tasks} />
             </div>
           </div>
-          <Form />
+          <Form onProjectCreation={task => this.handleProjectCreation(task)} />
         </div>
       </div>
     );
