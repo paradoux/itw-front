@@ -22,25 +22,20 @@ class Form extends React.Component {
         this.setState({ description })
     }
 
-    buildTask = () => {
+    taskBuilder = () => {
         let { title, description } = this.state
         let _id = uuidv4()
         let created_at = new Date(Date.now())
         let phase = 'flowcharts'
-        let task = { title, description, phase, _id, created_at }
-        return task
+        return { title, description, phase, _id, created_at }
     }
 
     handleSubmit = (e) => {
         e.preventDefault()
-        let task = this.buildTask()
-        if (task.title.match(/^[a-z0-9]+$/i) === null || task.description.match(/^[a-z0-9]+$/i) === null) {
-            alert("Sorry ! This field can't be empty !")
-        } else {
-            axios.post('/new', { task })
-            this.props.onProjectCreation(task)
-            this.setState({ title: '', description: '' })
-        }
+        let task = this.taskBuilder()
+        axios.post('/new', { task })
+        this.props.onProjectCreation(task)
+        this.setState({ title: '', description: '' })
     }
 
     render() {
